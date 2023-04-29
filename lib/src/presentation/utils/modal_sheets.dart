@@ -43,7 +43,7 @@ Future<bool> exitDialog({required context, required contentKey}) async {
         context: context,
         barrierColor: Colors.black38,
         barrierDismissible: true,
-        builder: (c) => Dialog(
+        builder: (BuildContext dialogContext) => Dialog(
           backgroundColor: Colors.transparent,
           elevation: 0,
           insetAnimationDuration: const Duration(milliseconds: 300),
@@ -96,7 +96,7 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   AnimatedOnTapButton(
                     onTap: () async {
                       _resetDefaults(context: context);
-                      Navigator.of(context).pop(true);
+                      Navigator.of(dialogContext).pop(true);
                     },
                     child: Text(
                       'Discard',
@@ -132,12 +132,14 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                             saveToGallery: true);
                         if (response) {
                           _dispose(
-                              context: context, message: 'Successfully saved');
+                              context: dialogContext,
+                              message: 'Successfully saved');
                         } else {
-                          _dispose(context: context, message: 'Error');
+                          _dispose(context: dialogContext, message: 'Error');
                         }
                       } else {
-                        _dispose(context: context, message: 'Draft Empty');
+                        _dispose(
+                            context: dialogContext, message: 'Draft Empty');
                       }
                     },
                     child: const Text(
@@ -160,7 +162,7 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   ///cancel
                   AnimatedOnTapButton(
                     onTap: () {
-                      Navigator.of(context).pop(false);
+                      Navigator.of(dialogContext).pop(false);
                     },
                     child: const Text(
                       'Cancel',
