@@ -41,7 +41,7 @@ Future createGiphyItem(
 Future<bool> exitDialog(
     {required context,
     required contentKey,
-    bool showSaveDraftOption = true,
+    bool? showSaveDraftOption,
     Function(String draftPath)? saveDraftCallback}) async {
   return (await showDialog(
         context: context,
@@ -120,7 +120,7 @@ Future<bool> exitDialog(
                   ),
 
                   /// save and exit
-                  !showSaveDraftOption
+                  showSaveDraftOption == false
                       ? SizedBox()
                       : AnimatedOnTapButton(
                           onTap: () async {
@@ -166,7 +166,7 @@ Future<bool> exitDialog(
                             textAlign: TextAlign.center,
                           ),
                         ),
-                  !showSaveDraftOption
+                  showSaveDraftOption == false
                       ? SizedBox()
                       : SizedBox(
                           height: 22,
