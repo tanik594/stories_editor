@@ -377,8 +377,8 @@ class _MainViewState extends State<MainView> {
                   ],
                 ),
                 gallery: GalleryMediaPicker(
-                  pathList: (path) {
-                    controlNotifier.mediaPath = path.first.path!.toString();
+                  pathList: (List<PickedAssetModel> paths) {
+                    controlNotifier.mediaPath = paths.first.path.toString();
                     if (controlNotifier.mediaPath.isNotEmpty) {
                       itemProvider.draggableWidget.insert(
                           0,
