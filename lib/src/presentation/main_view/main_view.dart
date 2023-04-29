@@ -377,7 +377,7 @@ class _MainViewState extends State<MainView> {
                   },
                   mediaPickerParams: MediaPickerParamsModel(
                   gridViewController: scrollProvider.gridController,
-                  thumbnailQuality: widget.galleryThumbnailQuality,
+                    thumbnailQuality: widget.galleryThumbnailQuality ?? 200,
                   singlePick: true,
                   onlyImages: true,
                   appBarColor: widget.editorBackgroundColor ?? Colors.black,
