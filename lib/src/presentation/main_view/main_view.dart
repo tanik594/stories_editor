@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,20 +62,30 @@ class MainView extends StatefulWidget {
 
   /// editor custom color palette list
   List<Color>? colorList;
-  MainView(
-      {Key? key,
-      required this.giphyKey,
-      required this.onDone,
-      this.middleBottomWidget,
-      this.colorList,
-      this.isCustomFontList,
-      this.fontFamilyList,
-      this.gradientColors,
-      this.onBackPress,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor,
-      this.galleryThumbnailQuality})
-      : super(key: key);
+
+  /// editor init file
+  File? starterFile;
+
+  bool showSaveDraftOption;
+  Function(String draftPath)? saveDraftCallback;
+
+  MainView({
+    Key? key,
+    required this.giphyKey,
+    required this.onDone,
+    this.middleBottomWidget,
+    this.colorList,
+    this.isCustomFontList,
+    this.fontFamilyList,
+    this.gradientColors,
+    this.onBackPress,
+    this.onDoneButtonStyle,
+    this.editorBackgroundColor,
+    this.galleryThumbnailQuality,
+    this.starterFile,
+    this.showSaveDraftOption = true,
+    this.saveDraftCallback,
+  }) : super(key: key);
 
   @override
   _MainViewState createState() => _MainViewState();
@@ -113,6 +125,9 @@ class _MainViewState extends State<MainView> {
       }
       if (widget.colorList != null) {
         _control.colorList = widget.colorList;
+      }
+      if (widget.starterFile != null) {
+        _control.mediaPath = widget.starterFile.path;
       }
     });
     super.initState();
@@ -362,7 +377,7 @@ class _MainViewState extends State<MainView> {
                   ],
                 ),
                 gallery: GalleryMediaPicker(
-                    pathList: (path) {
+                  pathList: (path) {
                     controlNotifier.mediaPath = path.first.path!.toString();
                     if (controlNotifier.mediaPath.isNotEmpty) {
                       itemProvider.draggableWidget.insert(
@@ -376,46 +391,46 @@ class _MainViewState extends State<MainView> {
                         curve: Curves.easeIn);
                   },
                   mediaPickerParams: MediaPickerParamsModel(
-                  gridViewController: scrollProvider.gridController,
+                    gridViewController: scrollProvider.gridController,
                     thumbnailQuality: widget.galleryThumbnailQuality ?? 200,
-                  singlePick: true,
-                  onlyImages: true,
-                  appBarColor: widget.editorBackgroundColor ?? Colors.black,
-                  gridViewPhysics: itemProvider.draggableWidget.isEmpty
-                      ? const NeverScrollableScrollPhysics()
-                      : const ScrollPhysics(),
-                  appBarLeadingWidget: Padding(
-                    padding: const EdgeInsets.only(bottom: 15, right: 15),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: AnimatedOnTapButton(
-                        onTap: () {
-                          scrollProvider.pageController.animateToPage(0,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1.2,
-                              )),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
+                    singlePick: true,
+                    onlyImages: true,
+                    appBarColor: widget.editorBackgroundColor ?? Colors.black,
+                    gridViewPhysics: itemProvider.draggableWidget.isEmpty
+                        ? const NeverScrollableScrollPhysics()
+                        : const ScrollPhysics(),
+                    appBarLeadingWidget: Padding(
+                      padding: const EdgeInsets.only(bottom: 15, right: 15),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: AnimatedOnTapButton(
+                          onTap: () {
+                            scrollProvider.pageController.animateToPage(0,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1.2,
+                                )),
+                            child: const Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
                 ),
               ),
             );
@@ -445,7 +460,11 @@ class _MainViewState extends State<MainView> {
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
       return widget.onBackPress ??
-          exitDialog(context: context, contentKey: contentKey);
+          exitDialog(
+              context: context,
+              contentKey: contentKey,
+              showSaveDraftOption: widget.showSaveDraftOption,
+              saveDraftCallback: widget.saveDraftCallback);
     }
     return false;
   }
