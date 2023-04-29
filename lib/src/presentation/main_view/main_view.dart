@@ -28,6 +28,7 @@ import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
+import 'package:gallery_media_picker/src/presentation/pages/gallery_media_picker_controller.dart';
 
 class MainView extends StatefulWidget {
   /// editor custom font families
@@ -127,7 +128,16 @@ class _MainViewState extends State<MainView> {
         _control.colorList = widget.colorList;
       }
       if (widget.starterFile != null) {
-        _control.mediaPath = widget.starterFile!.path;
+        Future.delayed(Duration(seconds: 5), () {
+          final GalleryMediaPickerController provider =
+              GalleryMediaPickerController();
+
+          _control.mediaPath = provider.pathList.isNotEmpty
+              ? provider.pathList[0].name
+              : widget
+                  .starterFile!.path; //TODO create PickedAssetModel() from file
+          setState(() {});
+        });
       }
     });
     super.initState();
