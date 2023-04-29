@@ -66,7 +66,9 @@ class BottomTools extends StatelessWidget {
                                 onTap: () {
                                   /// clear image url variable
                                   controlNotifier.mediaPath = '';
-                                  itemNotifier.draggableWidget.removeAt(0);
+                                  if (itemNotifier.draggableWidget.isNotEmpty) {
+                                    itemNotifier.draggableWidget.removeAt(0);
+                                  }
                                 },
                                 child: Container(
                                   height: 45,
