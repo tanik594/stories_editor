@@ -66,7 +66,7 @@ class MainView extends StatefulWidget {
   /// editor init file
   File? starterFile;
 
-  bool showSaveDraftOption;
+  bool? showSaveDraftOption;
   Function(String draftPath)? saveDraftCallback;
 
   MainView({
@@ -83,7 +83,7 @@ class MainView extends StatefulWidget {
     this.editorBackgroundColor,
     this.galleryThumbnailQuality,
     this.starterFile,
-    this.showSaveDraftOption = true,
+    this.showSaveDraftOption,
     this.saveDraftCallback,
   }) : super(key: key);
 
