@@ -127,7 +127,7 @@ class _MainViewState extends State<MainView> {
         _control.colorList = widget.colorList;
       }
       if (widget.starterFile != null) {
-        _control.mediaPath = widget.starterFile.path;
+        _control.mediaPath = widget.starterFile!.path;
       }
     });
     super.initState();
