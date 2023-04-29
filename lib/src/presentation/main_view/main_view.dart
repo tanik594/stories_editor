@@ -362,16 +362,7 @@ class _MainViewState extends State<MainView> {
                   ],
                 ),
                 gallery: GalleryMediaPicker(
-                  mediaPickerParams: MediaPickerParamsModel(
-                  gridViewController: scrollProvider.gridController,
-                  thumbnailQuality: widget.galleryThumbnailQuality,
-                  singlePick: true,
-                  onlyImages: true,
-                  appBarColor: widget.editorBackgroundColor ?? Colors.black,
-                  gridViewPhysics: itemProvider.draggableWidget.isEmpty
-                      ? const NeverScrollableScrollPhysics()
-                      : const ScrollPhysics(),
-                  pathList: (path) {
+                    pathList: (path) {
                     controlNotifier.mediaPath = path.first.path!.toString();
                     if (controlNotifier.mediaPath.isNotEmpty) {
                       itemProvider.draggableWidget.insert(
@@ -384,6 +375,15 @@ class _MainViewState extends State<MainView> {
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeIn);
                   },
+                  mediaPickerParams: MediaPickerParamsModel(
+                  gridViewController: scrollProvider.gridController,
+                  thumbnailQuality: widget.galleryThumbnailQuality,
+                  singlePick: true,
+                  onlyImages: true,
+                  appBarColor: widget.editorBackgroundColor ?? Colors.black,
+                  gridViewPhysics: itemProvider.draggableWidget.isEmpty
+                      ? const NeverScrollableScrollPhysics()
+                      : const ScrollPhysics(),
                   appBarLeadingWidget: Padding(
                     padding: const EdgeInsets.only(bottom: 15, right: 15),
                     child: Align(
