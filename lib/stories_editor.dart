@@ -57,7 +57,7 @@ class StoriesEditor extends StatefulWidget {
   bool showSaveDraftOption;
   Function(String draftPath)? saveDraftCallback;
 
-  const StoriesEditor({
+  StoriesEditor({
     Key? key,
     required this.giphyKey,
     required this.onDone,
