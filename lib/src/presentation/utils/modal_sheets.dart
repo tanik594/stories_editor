@@ -38,7 +38,11 @@ Future createGiphyItem(
 }
 
 /// custom exit dialog
-Future<bool> exitDialog({required context, required contentKey}) async {
+Future<bool> exitDialog(
+    {required context,
+    required contentKey,
+    bool showSaveDraftOption = true,
+    Function(String draftPath)? saveDraftCallback}) async {
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
@@ -116,48 +120,60 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   ),
 
                   /// save and exit
-                  AnimatedOnTapButton(
-                    onTap: () async {
-                      final _paintingProvider =
-                          Provider.of<PaintingNotifier>(context, listen: false);
-                      final _widgetProvider =
-                          Provider.of<DraggableWidgetNotifier>(context,
-                              listen: false);
-                      if (_paintingProvider.lines.isNotEmpty ||
-                          _widgetProvider.draggableWidget.isNotEmpty) {
-                        /// save image
-                        var response = await takePicture(
-                            contentKey: contentKey,
-                            context: context,
-                            saveToGallery: true);
-                        if (response) {
-                          _dispose(
-                              context: dialogContext,
-                              message: 'Successfully saved');
-                        } else {
-                          _dispose(context: dialogContext, message: 'Error');
-                        }
-                      } else {
-                        _dispose(
-                            context: dialogContext, message: 'Draft Empty');
-                      }
-                    },
-                    child: const Text(
-                      'Save Draft',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 22,
-                    child: Divider(
-                      color: Colors.white10,
-                    ),
-                  ),
+                  !showSaveDraftOption
+                      ? SizedBox()
+                      : AnimatedOnTapButton(
+                          onTap: () async {
+                            final _paintingProvider =
+                                Provider.of<PaintingNotifier>(context,
+                                    listen: false);
+                            final _widgetProvider =
+                                Provider.of<DraggableWidgetNotifier>(context,
+                                    listen: false);
+                            if (_paintingProvider.lines.isNotEmpty ||
+                                _widgetProvider.draggableWidget.isNotEmpty) {
+                              /// save image
+                              var response = await takePicture(
+                                  contentKey: contentKey,
+                                  context: context,
+                                  saveToGallery:
+                                      saveDraftCallback != null ? false : true);
+                              if (response) {
+                                _dispose(
+                                    context: dialogContext,
+                                    message: 'Successfully saved');
+                                if (saveDraftCallback != null &&
+                                    response is String) {
+                                  saveDraftCallback(response);
+                                }
+                              } else {
+                                _dispose(
+                                    context: dialogContext, message: 'Error');
+                              }
+                            } else {
+                              _dispose(
+                                  context: dialogContext,
+                                  message: 'Draft Empty');
+                            }
+                          },
+                          child: Text(
+                            'Save Draft',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                  !showSaveDraftOption
+                      ? SizedBox()
+                      : SizedBox(
+                          height: 22,
+                          child: Divider(
+                            color: Colors.white10,
+                          ),
+                        ),
 
                   ///cancel
                   AnimatedOnTapButton(
