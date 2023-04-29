@@ -362,6 +362,7 @@ class _MainViewState extends State<MainView> {
                   ],
                 ),
                 gallery: GalleryMediaPicker(
+                  mediaPickerParams: MediaPickerParamsModel(
                   gridViewController: scrollProvider.gridController,
                   thumbnailQuality: widget.galleryThumbnailQuality,
                   singlePick: true,
@@ -414,6 +415,7 @@ class _MainViewState extends State<MainView> {
                       ),
                     ),
                   ),
+                ),
                 ),
               ),
             );
