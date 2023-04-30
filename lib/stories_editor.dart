@@ -54,7 +54,7 @@ class StoriesEditor extends StatefulWidget {
   /// editor init file
   File? starterFile;
 
-  bool? showSaveDraftOption;
+ final bool? showSaveDraftOption;
   Function(String draftPath)? saveDraftCallback;
 
   StoriesEditor({
