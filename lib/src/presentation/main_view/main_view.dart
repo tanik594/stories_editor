@@ -67,8 +67,8 @@ class MainView extends StatefulWidget {
   /// editor init file
   File? starterFile;
 
-  bool? showSaveDraftOption;
-  Function(String draftPath)? saveDraftCallback;
+ final bool? showSaveDraftOption;
+ final Function(String draftPath)? saveDraftCallback;
 
   MainView({
     Key? key,
