@@ -67,8 +67,8 @@ class MainView extends StatefulWidget {
   /// editor init file
   File? starterFile;
 
- final bool? showSaveDraftOption;
- final Function(String draftPath)? saveDraftCallback;
+  final bool? showSaveDraftOption;
+  final Function(String draftPath)? saveDraftCallback;
 
   MainView({
     Key? key,
@@ -342,9 +342,12 @@ class _MainViewState extends State<MainView> {
                             child: Align(
                                 alignment: Alignment.topCenter,
                                 child: TopTools(
-                                  contentKey: contentKey,
-                                  context: context,
-                                )),
+                                    contentKey: contentKey,
+                                    context: context,
+                                    showSaveDraftOption:
+                                        widget.showSaveDraftOption,
+                                    saveDraftCallback:
+                                        widget.saveDraftCallback)),
                           ),
 
                           /// delete item when the item is in position
