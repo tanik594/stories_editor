@@ -41,8 +41,8 @@ Future createGiphyItem(
 Future<bool> exitDialog(
     {required context,
     required contentKey,
-    bool? showSaveDraftOption,
-    Function(String draftPath)? saveDraftCallback}) async {
+   required bool? showSaveDraftOption,
+   required Function(String draftPath)? saveDraftCallback}) async {
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
