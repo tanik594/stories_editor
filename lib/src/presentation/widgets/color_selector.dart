@@ -16,6 +16,7 @@ class ColorSelector extends StatelessWidget {
       builder:
           (context, controlProvider, editorProvider, paintingProvider, child) {
         return Container(
+          margin: EdgeInsets.only(bottom: 7),
           height: screenUtil.screenWidth * 0.1,
           width: screenUtil.screenWidth,
           alignment: Alignment.center,
