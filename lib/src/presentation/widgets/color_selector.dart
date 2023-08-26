@@ -16,7 +16,6 @@ class ColorSelector extends StatelessWidget {
       builder:
           (context, controlProvider, editorProvider, paintingProvider, child) {
         return Container(
-          margin: EdgeInsets.only(bottom: 7),
           height: screenUtil.screenWidth * 0.1,
           width: screenUtil.screenWidth,
           alignment: Alignment.center,
@@ -53,6 +52,7 @@ class ColorSelector extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(bottom: 5),
                   child: Row(
                     children: [
                       ...controlProvider.colorList!.map((color) {
