@@ -39,7 +39,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
 
             /// slider decoration with animations
             AnimatedContainer(
-              padding: EdgeInsets.only(left: _isChange ? 5 : 5, right: 2.1),
+              padding: EdgeInsets.only(left: _isChange ? 1 : 1, right: 2.1),
               duration: const Duration(milliseconds: 300),
               width: _isChange ? 39 : 15,
               height: 300,
@@ -59,7 +59,8 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(30)),
                     ),
-                    Padding(
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
                       padding: _isChange
                           ? const EdgeInsets.only(top: 2)
                           : const EdgeInsets.all(0),
