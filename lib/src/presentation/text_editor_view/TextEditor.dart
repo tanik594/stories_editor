@@ -50,8 +50,7 @@ class _TextEditorState extends State<TextEditor> {
                 /// onTap => Close view and create/modify item object
                 onTap: () => _onTap(context, controlNotifier, editorNotifier),
                 child: Container(
-                    decoration:
-                        BoxDecoration(color: Colors.black.withOpacity(0.5)),
+                    //  decoration:   BoxDecoration(color: Colors.black.withOpacity(0.5)),
                     height: screenUtil.screenHeight,
                     width: screenUtil.screenWidth,
                     child: Stack(
@@ -80,7 +79,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font family selector (bottom)
                         Positioned(
-                          bottom: screenUtil.screenHeight * 0.21,
+                          bottom: screenUtil.screenHeight * 0.31,
                           child: Visibility(
                             visible: editorNotifier.isFontFamily &&
                                 !editorNotifier.isTextAnimation,
@@ -96,7 +95,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font color selector (bottom)
                         Positioned(
-                          bottom: screenUtil.screenHeight * 0.21,
+                          bottom: screenUtil.screenHeight * 0.31,
                           child: Visibility(
                               visible: !editorNotifier.isFontFamily &&
                                   !editorNotifier.isTextAnimation,
@@ -111,7 +110,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font animation selector (bottom
                         Positioned(
-                          bottom: screenUtil.screenHeight * 0.21,
+                          bottom: screenUtil.screenHeight * 0.31,
                           child: Visibility(
                               visible: editorNotifier.isTextAnimation,
                               child: const Align(
