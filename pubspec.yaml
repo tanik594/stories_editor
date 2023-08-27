@@ -10,6 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  
+  image_downloader:
+    git:
+      url: https://github.com/intellign/gallery_media_picker.git
+     # ref: master
   # state management
   provider: ^6.0.4
   # image
@@ -24,10 +29,7 @@ dependencies:
   image_gallery_saver: ^1.7.1
   #own packages
   #gallery_media_picker: ^0.1.0
-  image_downloader:
-    git:
-      url: https://github.com/intellign/gallery_media_picker.git
-     # ref: master
+
 
   modal_gif_picker: ^0.0.2
   # painting
