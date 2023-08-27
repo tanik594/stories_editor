@@ -26,6 +26,8 @@ class StoriesEditor extends StatefulWidget {
 
   /// giphy api key
   final String giphyKey;
+  final String? giphyRating;
+  final String? giphyLanguage;
 
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
@@ -54,13 +56,15 @@ class StoriesEditor extends StatefulWidget {
   /// editor init file
   File? starterFile;
 
- final bool? showSaveDraftOption;
- final Function(String draftPath)? saveDraftCallback;
+  final bool? showSaveDraftOption;
+  final Function(String draftPath)? saveDraftCallback;
 
   StoriesEditor({
     Key? key,
     required this.giphyKey,
     required this.onDone,
+    this.giphyRating,
+    this.giphyLanguage,
     this.middleBottomWidget,
     this.colorList,
     this.gradientColors,
@@ -119,6 +123,8 @@ class _StoriesEditorState extends State<StoriesEditor> {
           ],
           child: MainView(
             giphyKey: widget.giphyKey,
+            giphyLanguage: widget.giphyLanguage,
+            giphyRating: widget.giphyRating,
             onDone: widget.onDone,
             fontFamilyList: widget.fontFamilyList,
             isCustomFontList: widget.isCustomFontList,
