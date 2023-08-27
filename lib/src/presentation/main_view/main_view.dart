@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-//https://github.com/camilo1498/stories_editor/issues/9
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -29,6 +29,7 @@ import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
 import 'package:gallery_media_picker/src/presentation/pages/gallery_media_picker_controller.dart';
+//import 'package:render/render.dart';
 
 class MainView extends StatefulWidget {
   /// editor custom font families
@@ -39,6 +40,8 @@ class MainView extends StatefulWidget {
 
   /// giphy api key
   final String giphyKey;
+  final String? giphyRating;
+  final String? giphyLanguage;
 
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
@@ -74,6 +77,8 @@ class MainView extends StatefulWidget {
     Key? key,
     required this.giphyKey,
     required this.onDone,
+    this.giphyRating,
+    this.giphyLanguage,
     this.middleBottomWidget,
     this.colorList,
     this.isCustomFontList,
@@ -109,6 +114,8 @@ class _MainViewState extends State<MainView> {
   bool _isDeletePosition = false;
   bool _inAction = false;
 
+//  final controller = RenderController();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -116,6 +123,9 @@ class _MainViewState extends State<MainView> {
 
       /// initialize control variable provider
       _control.giphyKey = widget.giphyKey;
+      _control.giphyRating = widget.giphyRating;
+      _control.giphyLanguage = widget.giphyLanguage;
+
       _control.middleBottomWidget = widget.middleBottomWidget;
       _control.isCustomFontList = widget.isCustomFontList ?? false;
       if (widget.gradientColors != null) {
