@@ -14,13 +14,17 @@ import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.da
 
 /// create item of type GIF
 Future createGiphyItem(
-    {required BuildContext context, required giphyKey}) async {
+    {required BuildContext context,
+    required String giphyKey,
+    String? giphyRating,
+    String? giphyLanguage}) async {
   final _editableItem =
       Provider.of<DraggableWidgetNotifier>(context, listen: false);
   _editableItem.giphy = await ModalGifPicker.pickModalSheetGif(
     context: context,
     apiKey: giphyKey,
-    rating: GiphyRating.r,
+    rating: giphyRating ?? GiphyRating.r,
+    lang: giphyLanguage ?? GiphyLanguage.english,
     sticker: true,
     backDropColor: Colors.black,
     crossAxisCount: 3,
