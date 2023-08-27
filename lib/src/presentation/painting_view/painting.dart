@@ -153,6 +153,8 @@ class _PaintingState extends State<Painting> {
     /// return Painting board
     return Consumer2<ControlNotifier, PaintingNotifier>(
       builder: (context, controlNotifier, paintingNotifier, child) {
+        final ScreenUtil screenUtil = ScreenUtil();
+
         return WillPopScope(
           onWillPop: () async {
             controlNotifier.isPainting = false;
@@ -181,12 +183,15 @@ class _PaintingState extends State<Painting> {
                 const SafeArea(child: TopPaintingTools()),
 
                 /// bottom color picker
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
-                    child: const ColorSelector(),
+                Positioned(
+                  bottom: screenUtil.screenHeight * 0.31,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 30.h, horizontal: 30.w),
+                      child: const ColorSelector(),
+                    ),
                   ),
                 ),
               ],
