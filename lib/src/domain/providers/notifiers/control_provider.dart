@@ -4,11 +4,25 @@ import 'package:stories_editor/src/presentation/utils/constants/font_family.dart
 
 class ControlNotifier extends ChangeNotifier {
   String _giphyKey = '';
+  String? _giphyRating = '';
+  String? _giphyLanguage = '';
 
   /// is required add your giphy API KEY
   String get giphyKey => _giphyKey;
+  String? get giphyRating => giphyRating;
+  String? get giphyLanguage => _giphyLanguage;
   set giphyKey(String key) {
     _giphyKey = key;
+    notifyListeners();
+  }
+
+  set giphyRating(String? key) {
+    _giphyRating = key;
+    notifyListeners();
+  }
+
+  set giphyLanguage(String? key) {
+    _giphyLanguage = key;
     notifyListeners();
   }
 
