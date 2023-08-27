@@ -105,7 +105,11 @@ class _TopToolsState extends State<TopTools> {
                     ),
                     backGroundColor: Colors.black12,
                     onTap: () => createGiphyItem(
-                        context: context, giphyKey: controlNotifier.giphyKey)),
+                          context: context,
+                          giphyKey: controlNotifier.giphyKey,
+                          giphyRating: controlNotifier.giphyRating,
+                          giphyLanguage: controlNotifier.giphyLanguage,
+                        )),
                 ToolButton(
                     child: const ImageIcon(
                       AssetImage('assets/icons/draw.png',
