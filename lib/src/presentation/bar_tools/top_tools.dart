@@ -24,6 +24,8 @@ class TopTools extends StatefulWidget {
     required this.context,
     this.showSaveDraftOption,
     this.saveDraftCallback,
+    this.giphyRating,
+    this.giphyLanguage,
   }) : super(key: key);
 
   @override
