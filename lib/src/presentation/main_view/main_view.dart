@@ -386,7 +386,7 @@ class _MainViewState extends State<MainView> {
                     ),
 
                     /// bottom tools
-                    if (!kIsWeb)
+                    if (!kIsWeb || controlNotifier.isPainting)
                       BottomTools(
                         contentKey: contentKey,
                         onDone: (bytes) {
