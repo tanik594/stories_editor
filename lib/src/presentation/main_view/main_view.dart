@@ -354,6 +354,8 @@ class _MainViewState extends State<MainView> {
                                 child: TopTools(
                                     contentKey: contentKey,
                                     context: context,
+                                    giphyLanguage: widget.giphyLanguage,
+                                    giphyRating: widget.giphyRating,
                                     showSaveDraftOption:
                                         widget.showSaveDraftOption,
                                     saveDraftCallback:
