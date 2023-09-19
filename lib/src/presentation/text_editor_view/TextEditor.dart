@@ -49,6 +49,9 @@ class _TextEditorState extends State<TextEditor> {
               body: GestureDetector(
                 /// onTap => Close view and create/modify item object
                 onTap: () => _onTap(context, controlNotifier, editorNotifier),
+                onVerticalDragEnd: (details) {
+                  FocusScope.of(context).unfocus();
+                },
                 child: Container(
                     //  decoration:   BoxDecoration(color: Colors.black.withOpacity(0.5)),
                     height: screenUtil.screenHeight,
@@ -79,7 +82,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font family selector (bottom)
                         Positioned(
-                          bottom: screenUtil.screenHeight * 0.31,
+                          bottom: screenUtil.screenHeight * 0.21,
                           child: Visibility(
                             visible: editorNotifier.isFontFamily &&
                                 !editorNotifier.isTextAnimation,
@@ -95,7 +98,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font color selector (bottom)
                         Positioned(
-                          bottom: screenUtil.screenHeight * 0.31,
+                          bottom: screenUtil.screenHeight * 0.21,
                           child: Visibility(
                               visible: !editorNotifier.isFontFamily &&
                                   !editorNotifier.isTextAnimation,
@@ -110,7 +113,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font animation selector (bottom
                         Positioned(
-                          bottom: screenUtil.screenHeight * 0.31,
+                          bottom: screenUtil.screenHeight * 0.21,
                           child: Visibility(
                               visible: editorNotifier.isTextAnimation,
                               child: const Align(
