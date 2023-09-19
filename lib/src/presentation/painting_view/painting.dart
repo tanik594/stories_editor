@@ -183,15 +183,12 @@ class _PaintingState extends State<Painting> {
                 const SafeArea(child: TopPaintingTools()),
 
                 /// bottom color picker
-                Positioned(
-                  bottom: screenUtil.screenHeight * 0.31,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 30.h, horizontal: 30.w),
-                      child: const ColorSelector(),
-                    ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+                    child: const ColorSelector(),
                   ),
                 ),
               ],
