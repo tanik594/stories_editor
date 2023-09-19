@@ -28,7 +28,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
             /// custom paint
             AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: EdgeInsets.only(right: _isChange ? 0 : 15),
+                padding: EdgeInsets.only(right: _isChange ? 0 : 17),
                 width: _isChange ? 39 : 10,
                 height: 300,
                 child: CustomPaint(
@@ -39,7 +39,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
 
             /// slider decoration with animations
             AnimatedContainer(
-              margin: EdgeInsets.only(left: _isChange ? 0 : 7),
+              margin: EdgeInsets.only(left: _isChange ? 0 : 11),
               padding: EdgeInsets.only(left: _isChange ? 1 : 1, right: 2.1),
               duration: const Duration(milliseconds: 300),
               width: _isChange ? 39 : 15,
