@@ -183,7 +183,7 @@ class _PaintingState extends State<Painting> {
                 const SafeArea(child: TopPaintingTools()),
 
                 /// bottom color picker
-                Align(
+                /*   Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding:
@@ -191,6 +191,7 @@ class _PaintingState extends State<Painting> {
                     child: const ColorSelector(),
                   ),
                 ),
+                */
               ],
             ),
           ),
