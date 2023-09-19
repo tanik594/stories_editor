@@ -33,11 +33,10 @@ class BottomTools extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 40.h),
             child: controlNotifier.isPainting
-                ?Padding(
-                    padding:
-                        EdgeInsets.only(bottom: 30),
+                ? Padding(
+                    padding: EdgeInsets.only(bottom: 30),
                     child: const ColorSelector(),
-                  ),
+                  )
                 : Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
