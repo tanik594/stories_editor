@@ -14,6 +14,8 @@ class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
   final bool? showSaveDraftOption;
+  final String? giphyRating;
+  final String? giphyLanguage;
   final Function(String draftPath)? saveDraftCallback;
 
   const TopTools({
@@ -107,8 +109,10 @@ class _TopToolsState extends State<TopTools> {
                     onTap: () => createGiphyItem(
                           context: context,
                           giphyKey: controlNotifier.giphyKey,
-                          giphyRating: controlNotifier.giphyRating,
-                          giphyLanguage: controlNotifier.giphyLanguage,
+                          giphyRating:
+                              widget.giphyRating, //controlNotifier.giphyRating,
+                          giphyLanguage: widget
+                              .giphyLanguage, //controlNotifier.giphyLanguage,
                         )),
                 ToolButton(
                     child: const ImageIcon(
