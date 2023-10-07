@@ -127,4 +127,14 @@ class ControlNotifier extends ChangeNotifier {
     _isPhotoFilter = filter;
     notifyListeners();
   }
+
+  bool _isTextShadow = false;
+  bool get isTextShadow => _isTextShadow;
+
+  /// get bool if is text shadow
+  set isTextShadow(bool val) {
+    /// set bool if is text editing
+    _isTextShadow = val;
+    notifyListeners();
+  }
 }
