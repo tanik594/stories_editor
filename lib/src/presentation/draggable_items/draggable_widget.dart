@@ -56,21 +56,25 @@ class DraggableWidget extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Center(
-                      child: _text(
-                          background: true,
-                          paintingStyle: PaintingStyle.fill,
-                          controlNotifier: _controlProvider),
-                    ),
-                    IgnorePointer(
-                      ignoring: true,
-                      child: Center(
-                        child: _text(
-                            background: true,
-                            paintingStyle: PaintingStyle.stroke,
-                            controlNotifier: _controlProvider),
-                      ),
-                    ),
+                    _controlProvider.isTextShadow != true
+                        ? SizedBox()
+                        : Center(
+                            child: _text(
+                                background: true,
+                                paintingStyle: PaintingStyle.fill,
+                                controlNotifier: _controlProvider),
+                          ),
+                    _controlProvider.isTextShadow != true
+                        ? SizedBox()
+                        : IgnorePointer(
+                            ignoring: true,
+                            child: Center(
+                              child: _text(
+                                  background: true,
+                                  paintingStyle: PaintingStyle.stroke,
+                                  controlNotifier: _controlProvider),
+                            ),
+                          ),
                     Padding(
                       padding: const EdgeInsets.only(right: 2.5, top: 2),
                       child: Stack(
@@ -223,28 +227,31 @@ class DraggableWidget extends StatelessWidget {
       required PaintingStyle paintingStyle,
       bool background = false}) {
     return TextStyle(
-      fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
-      package: controlNotifier.isCustomFontList ? null : 'stories_editor',
-      fontWeight: FontWeight.w500,
-      // shadows: <Shadow>[
-      //   Shadow(
-      //       offset: const Offset(0, 0),
-      //       //blurRadius: 3.0,
-      //       color: draggableWidget.textColor == Colors.black
-      //           ? Colors.white54
-      //           : Colors.black)
-      // ]
-    ).copyWith(
-        color: background ? Colors.black : draggableWidget.textColor,
-        fontSize: draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
-        background: Paint()
-          ..strokeWidth = 20.0
-          ..color = draggableWidget.backGroundColor
-          ..style = paintingStyle
-          ..strokeJoin = StrokeJoin.round
-          ..filterQuality = FilterQuality.high
-          ..strokeCap = StrokeCap.round
-          ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1));
+            fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
+            package: controlNotifier.isCustomFontList ? null : 'stories_editor',
+            fontWeight: FontWeight.w500,
+            shadows: controlNotifier.isTextShadow != true
+                ? null
+                : <Shadow>[
+                    Shadow(
+                        offset: const Offset(1.0, 1.0),
+                        blurRadius: 3.0,
+                        color: draggableWidget.textColor == Colors.black
+                            ? Colors.white54
+                            : Colors.black)
+                  ])
+        .copyWith(
+            color: background ? Colors.black : draggableWidget.textColor,
+            fontSize:
+                draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
+            background: controlNotifier.isTextShadow != true ? Paint() : Paint()
+              ..strokeWidth = 20.0
+              ..color = draggableWidget.backGroundColor
+              ..style = paintingStyle
+              ..strokeJoin = StrokeJoin.round
+              ..filterQuality = FilterQuality.high
+              ..strokeCap = StrokeCap.round
+              ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1));
   }
 
   _deleteTopOffset() {
