@@ -25,6 +25,7 @@ class StoriesEditor extends StatefulWidget {
   final bool? isCustomFontList;
 
   /// giphy api key
+  final Widget? permissionWidget;
   final String giphyKey;
   final String? giphyRating;
   final String? giphyLanguage;
@@ -63,6 +64,7 @@ class StoriesEditor extends StatefulWidget {
     Key? key,
     required this.giphyKey,
     required this.onDone,
+    required this.permissionWidget,
     this.giphyRating,
     this.giphyLanguage,
     this.middleBottomWidget,
@@ -126,6 +128,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
             giphyLanguage: widget.giphyLanguage,
             giphyRating: widget.giphyRating,
             onDone: widget.onDone,
+            permissionWidget: widget.permissionWidget,
             fontFamilyList: widget.fontFamilyList,
             isCustomFontList: widget.isCustomFontList,
             middleBottomWidget: widget.middleBottomWidget,
