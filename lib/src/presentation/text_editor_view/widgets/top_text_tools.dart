@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
 import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 
 class TopTextTools extends StatelessWidget {
   final void Function() onDone;
@@ -9,6 +10,7 @@ class TopTextTools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _controlProvider = Provider.of<ControlNotifier>(context, listen: false);
     return Consumer<TextEditingNotifier>(
       builder: (context, editorNotifier, child) {
         return Container(
@@ -17,7 +19,7 @@ class TopTextTools extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: [
               Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   /// font family / font color
                   ToolButton(
@@ -120,36 +122,53 @@ class TopTextTools extends StatelessWidget {
                             ),
                           ),
                         )),
-                  )
+                  ),
+                  ToolButton(
+                    onTap: () {
+                      _controlProvider.isTextShadow =
+                          !_controlProvider.isTextShadow;
+                    },
+                    child: Transform.scale(
+                        scale: 0.8,
+                        child: Icon(
+                          Icons.wb_shade_rounded,
+                          color: _controlProvider.isTextShadow == true
+                              ? Colors.red
+                              : Colors.white,
+                        )),
+                  ),
                 ],
               ),
 
               /// close and create item
-              GestureDetector(
-                onTap: onDone,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10, top: 10),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 12),
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Colors.white, width: 1.5),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: const Text(
-                        'Done',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+              Container(
+                  margin: EdgeInsets.only(left: 12),
+                  child: GestureDetector(
+                    onTap: onDone,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10, top: 10),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 6, horizontal: 12),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border:
+                                  Border.all(color: Colors.white, width: 1.5),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: const Text(
+                            'Done',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
         );
