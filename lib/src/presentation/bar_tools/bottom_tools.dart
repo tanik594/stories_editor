@@ -13,6 +13,7 @@ class BottomTools extends StatelessWidget {
   final GlobalKey contentKey;
   final Function(String imageUri) onDone;
   final Widget? onDoneButtonStyle;
+  final Widget? permissionWidget;
 
   /// editor background color
   final Color? editorBackgroundColor;
@@ -21,6 +22,7 @@ class BottomTools extends StatelessWidget {
       required this.contentKey,
       required this.onDone,
       this.onDoneButtonStyle,
+      this.permissionWidget,
       this.editorBackgroundColor})
       : super(key: key);
 
@@ -63,7 +65,8 @@ class BottomTools extends StatelessWidget {
                                                     curve: Curves.ease);
                                           }
                                         },
-                                        child: const CoverThumbnail(
+                                        child: CoverThumbnail(
+                                          permissionWidget: permissionWidget,
                                           thumbnailQuality: 150,
                                         ),
                                       ))
