@@ -75,17 +75,20 @@ class TextFieldWidget extends StatelessWidget {
                               : Colors.black)
                     ])
           .copyWith(
-              color: controlNotifier.colorList![editorNotifier.textColor],
-              fontSize: editorNotifier.textSize,
-              background:
-                  controlNotifier.isTextShadow != true ? Paint() : Paint()
-                    ..strokeWidth = 20.0
-                    ..color = editorNotifier.backGroundColor
-                    ..style = paintingStyle
-                    ..strokeJoin = StrokeJoin.round
-                    ..filterQuality = FilterQuality.high
-                    ..strokeCap = StrokeCap.round
-                    ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1)),
+        color: controlNotifier.colorList![editorNotifier.textColor],
+        fontSize: editorNotifier.textSize,
+        /* background: controlNotifier.isTextShadow != true
+                  ? Paint()
+                  : Paint()
+                ..strokeWidth = 20.0
+                ..color = Colors.transparent //editorNotifier.backGroundColor
+                ..style = paintingStyle
+                ..strokeJoin = StrokeJoin.round
+                ..filterQuality = FilterQuality.high
+                ..strokeCap = StrokeCap.round
+                ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1)
+                */
+      ),
     );
   }
 
@@ -116,18 +119,19 @@ class TextFieldWidget extends StatelessWidget {
                               ? Colors.white54
                               : Colors.black)
                     ],
-              backgroundColor: Colors.redAccent)
+              backgroundColor: Colors.transparent)
           .copyWith(
         color: controlNotifier.colorList![editorNotifier.textColor],
         fontSize: editorNotifier.textSize,
-        background: controlNotifier.isTextShadow != true ? Paint() : Paint()
+        /*  background: controlNotifier.isTextShadow != true ? Paint() : Paint()
           ..strokeWidth = 20.0
-          ..color = editorNotifier.backGroundColor
+          ..color = Colors.transparent //editorNotifier.backGroundColor
           ..style = paintingStyle
           ..strokeJoin = StrokeJoin.round
           ..filterQuality = FilterQuality.high
           ..strokeCap = StrokeCap.round
           ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1),
+          */
         shadows: controlNotifier.isTextShadow != true
             ? null
             : <Shadow>[
