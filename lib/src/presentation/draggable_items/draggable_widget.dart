@@ -241,17 +241,18 @@ class DraggableWidget extends StatelessWidget {
                             : Colors.black)
                   ])
         .copyWith(
-            color: background ? Colors.black : draggableWidget.textColor,
-            fontSize:
-                draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
-            background: controlNotifier.isTextShadow != true ? Paint() : Paint()
+      color: background ? Colors.black : draggableWidget.textColor,
+      fontSize: draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
+      /* background: controlNotifier.isTextShadow != true ? Paint() : Paint()
               ..strokeWidth = 20.0
               ..color = draggableWidget.backGroundColor
               ..style = paintingStyle
               ..strokeJoin = StrokeJoin.round
               ..filterQuality = FilterQuality.high
               ..strokeCap = StrokeCap.round
-              ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1));
+              ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1)
+              */
+    );
   }
 
   _deleteTopOffset() {
