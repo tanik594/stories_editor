@@ -100,7 +100,7 @@ class _TopToolsState extends State<TopTools> {
                         }
                       }
                     }),
-                ToolButton(
+                /*ToolButton(
                     child: const ImageIcon(
                       AssetImage('assets/icons/stickers.png',
                           package: 'stories_editor'),
@@ -115,8 +115,8 @@ class _TopToolsState extends State<TopTools> {
                               widget.giphyRating, //controlNotifier.giphyRating,
                           giphyLanguage: widget
                               .giphyLanguage, //controlNotifier.giphyLanguage,
-                        )),
-                ToolButton(
+                        )),*/
+                /*ToolButton(
                     child: const ImageIcon(
                       AssetImage('assets/icons/draw.png',
                           package: 'stories_editor'),
@@ -127,7 +127,7 @@ class _TopToolsState extends State<TopTools> {
                     onTap: () {
                       controlNotifier.isPainting = true;
                       //createLinePainting(context: context);
-                    }),
+                    }),*/
                 // ToolButton(
                 //   child: ImageIcon(
                 //     const AssetImage('assets/icons/photo_filter.png',

@@ -45,6 +45,7 @@ class _ExampleState extends State<Example> {
                             //fontFamilyList: const ['Shizuru', 'Aladin'],
                             galleryThumbnailQuality: 300,
                             //isCustomFontList: true,
+                        permissionWidget: Container(),
                             onDone: (uri) {
                               debugPrint(uri);
                               Share.shareFiles([uri]);
