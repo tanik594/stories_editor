@@ -99,7 +99,9 @@ class DraggableWidget extends StatelessWidget {
       case ItemType.image:
         if (_controlProvider.mediaPath.isNotEmpty) {
           overlayWidget = SizedBox(
-            width: screenUtil.screenWidth - 144.w,
+            // width: screenUtil.screenWidth - 144.w,
+            width: screenUtil.screenWidth,
+            height: screenUtil.screenHeight,
             child: FileImageBG(
               filePath: File(_controlProvider.mediaPath),
               generatedGradient: (color1, color2) {
