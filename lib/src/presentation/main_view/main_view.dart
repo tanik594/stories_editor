@@ -278,10 +278,10 @@ class _MainViewState extends State<MainView> {
                                             /// in this case photo view works as a main background container to manage
                                             /// the gestures of all movable items.
                                             PhotoView.customChild(
+                                              minScale: PhotoViewComputedScale.contained * 0.8,
+                                              maxScale: PhotoViewComputedScale.covered * 1.8,
+                                              initialScale: PhotoViewComputedScale.contained * 1.1,
                                               child: Container(
-                                                width: screenUtil.screenWidth,
-                                                height: screenUtil.screenHeight,
-                                                color: Colors.transparent,
                                               ),
                                               backgroundDecoration:
                                                   const BoxDecoration(
