@@ -67,6 +67,8 @@ class _FileImageBGState extends State<FileImageBG> {
               File(widget.filePath!.path),
               key: imageKey,
               filterQuality: FilterQuality.high,
+                  fit: BoxFit.cover,
+                  height: screenUtil.screenHeight,
             ))));
   }
 }
