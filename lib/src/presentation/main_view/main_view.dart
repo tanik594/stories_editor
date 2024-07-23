@@ -153,6 +153,10 @@ class _MainViewState extends State<MainView> {
           setState(() {});
         });
       } else {}
+      Future.delayed(const Duration(milliseconds: 500), () {
+        var scrollProvider = Provider.of<ScrollNotifier>(context, listen: false);
+        scrollProvider.pageController.animateToPage(1, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+      });
     });
     super.initState();
   }
