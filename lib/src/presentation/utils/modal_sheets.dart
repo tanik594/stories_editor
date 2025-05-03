@@ -42,150 +42,126 @@ Future createGiphyItem(
 }
 
 /// custom exit dialog
-Future<bool> exitDialog(
-    {required context,
-    required contentKey,
-    bool? showSaveDraftOption,
-    Function(String draftPath)? saveDraftCallback}) async {
+Future<bool> exitDialog({
+  required context,
+  required contentKey,
+  bool? showSaveDraftOption,
+  Function(String draftPath)? saveDraftCallback,
+}) async {
   return (await showDialog(
-        context: context,
-        barrierColor: Colors.black38,
-        barrierDismissible: true,
-        builder: (BuildContext dialogContext) => Dialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          insetAnimationDuration: const Duration(milliseconds: 300),
-          insetAnimationCurve: Curves.ease,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Container(
-              padding: const EdgeInsets.only(
-                  top: 25, bottom: 5, right: 20, left: 20),
-              alignment: Alignment.center,
-              height: 280,
-              decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: HexColor.fromHex('#262626'),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.white10,
-                        offset: Offset(0, 1),
-                        blurRadius: 4),
-                  ]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text(
-                    'Discard Edits?',
+    context: context,
+    barrierColor: Colors.black38,
+    barrierDismissible: true,
+    builder: (BuildContext dialogContext) => MediaQuery(
+      data: MediaQuery.of(dialogContext).copyWith(textScaleFactor: 1.0), // テキストサイズを固定
+      child: Dialog(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        insetAnimationDuration: const Duration(milliseconds: 300),
+        insetAnimationCurve: Curves.ease,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Container(
+            padding: const EdgeInsets.only(
+                top: 25, bottom: 5, right: 20, left: 20),
+            alignment: Alignment.center,
+            height: 280,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: HexColor.fromHex('#262626'),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.white10,
+                  offset: Offset(0, 1),
+                  blurRadius: 4,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text(
+                  'Discard Edits?',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      letterSpacing: 0.5),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "If you go back now, you'll lose all the edits you've made.",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white54,
+                      letterSpacing: 0.1),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+
+                /// discard
+                AnimatedOnTapButton(
+                  onTap: () async {
+                    _resetDefaults(context: context);
+                    Navigator.of(dialogContext).pop(true);
+                  },
+                  child: Text(
+                    'Discard',
                     style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        letterSpacing: 0.5),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "If you go back now, you'll lose all the edits you've made.",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white54,
+                        fontSize: 16,
+                        color: Colors.redAccent.shade200,
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 0.1),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                    height: 40,
+                ),
+                const SizedBox(
+                  height: 22,
+                  child: Divider(
+                    color: Colors.white10,
                   ),
+                ),
 
-                  /// discard
+                /// save and exit
+                if (showSaveDraftOption == true)
                   AnimatedOnTapButton(
                     onTap: () async {
-                      _resetDefaults(context: context);
-                      Navigator.of(dialogContext).pop(true);
+                      final _paintingProvider = Provider.of<PaintingNotifier>(
+                          context,
+                          listen: false);
+                      final _widgetProvider = Provider.of<DraggableWidgetNotifier>(
+                          context,
+                          listen: false);
+                      if (_paintingProvider.lines.isNotEmpty ||
+                          _widgetProvider.draggableWidget.isNotEmpty) {
+                        /// save image
+                        var response = await takePicture(
+                            contentKey: contentKey,
+                            context: context,
+                            saveToGallery:
+                            saveDraftCallback != null ? false : true);
+                        if (response) {
+                          _dispose(
+                              context: dialogContext,
+                              message: 'Successfully saved');
+                          if (saveDraftCallback != null && response is String) {
+                            saveDraftCallback(response);
+                          }
+                        } else {
+                          _dispose(context: dialogContext, message: 'Error');
+                        }
+                      } else {
+                        _dispose(context: dialogContext, message: 'Draft Empty');
+                      }
                     },
                     child: Text(
-                      'Discard',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.redAccent.shade200,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.1),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 22,
-                    child: Divider(
-                      color: Colors.white10,
-                    ),
-                  ),
-
-                  /// save and exit
-                  showSaveDraftOption == false
-                      ? SizedBox()
-                      : AnimatedOnTapButton(
-                          onTap: () async {
-                            final _paintingProvider =
-                                Provider.of<PaintingNotifier>(context,
-                                    listen: false);
-                            final _widgetProvider =
-                                Provider.of<DraggableWidgetNotifier>(context,
-                                    listen: false);
-                            if (_paintingProvider.lines.isNotEmpty ||
-                                _widgetProvider.draggableWidget.isNotEmpty) {
-                              /// save image
-                              var response = await takePicture(
-                                  contentKey: contentKey,
-                                  context: context,
-                                  saveToGallery:
-                                      saveDraftCallback != null ? false : true);
-                              if (response) {
-                                _dispose(
-                                    context: dialogContext,
-                                    message: 'Successfully saved');
-                                if (saveDraftCallback != null &&
-                                    response is String) {
-                                  saveDraftCallback(response);
-                                }
-                              } else {
-                                _dispose(
-                                    context: dialogContext, message: 'Error');
-                              }
-                            } else {
-                              _dispose(
-                                  context: dialogContext,
-                                  message: 'Draft Empty');
-                            }
-                          },
-                          child: Text(
-                            'Save Draft',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                  showSaveDraftOption == false
-                      ? SizedBox()
-                      : SizedBox(
-                          height: 22,
-                          child: Divider(
-                            color: Colors.white10,
-                          ),
-                        ),
-
-                  ///cancel
-                  AnimatedOnTapButton(
-                    onTap: () {
-                      Navigator.of(dialogContext).pop(false);
-                    },
-                    child: const Text(
-                      'Cancel',
+                      'Save Draft',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -194,12 +170,36 @@ Future<bool> exitDialog(
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ],
-              ),
+                if (showSaveDraftOption == true)
+                  const SizedBox(
+                    height: 22,
+                    child: Divider(
+                      color: Colors.white10,
+                    ),
+                  ),
+
+                /// cancel
+                AnimatedOnTapButton(
+                  onTap: () {
+                    Navigator.of(dialogContext).pop(false);
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      )) ??
+      ),
+    ),
+  )) ??
       false;
 }
 
