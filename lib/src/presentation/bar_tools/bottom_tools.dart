@@ -82,6 +82,15 @@ class BottomTools extends StatelessWidget {
                                   .draggableWidget.isNotEmpty) {
                                 itemNotifier.draggableWidget
                                     .removeAt(0);
+                                /// scroll to gridView page
+                                if (controlNotifier
+                                    .mediaPath.isEmpty) {
+                                  scrollNotifier.pageController
+                                      .animateToPage(1,
+                                      duration: const Duration(
+                                          milliseconds: 300),
+                                      curve: Curves.ease);
+                                }
                               }
                             },
                             child: Container(
