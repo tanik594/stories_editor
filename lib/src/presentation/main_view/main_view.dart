@@ -486,6 +486,7 @@ class _MainViewState extends State<MainView> {
                               : const ScrollPhysics(),
                           appBarLeadingWidget: leadingWidget(),
                         ),
+                        multiForNow: false,
                       ),
               ),
             );

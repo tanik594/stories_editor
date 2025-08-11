@@ -70,6 +70,7 @@ class BottomTools extends StatelessWidget {
                                 child: CoverThumbnail(
                                   permissionWidget: permissionWidget,
                                   thumbnailQuality: 150,
+                                  viewIndex: 0,
                                 ),
                               ))
 
