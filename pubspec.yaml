@@ -12,9 +12,10 @@ dependencies:
 
   
   gallery_media_picker:
-    git:
-      url: https://github.com/intellign/gallery_media_picker.git
-     # ref: master
+    path: ../gallery_media_picker
+    # git:
+      # url: https://github.com/intellign/gallery_media_picker.git
+      # ref: main
   # state management
   provider: ^6.0.4
   # image
@@ -26,7 +27,8 @@ dependencies:
   #  git:
   #    url: https://github.com/bluefireteam/photo_view
   #    ref: 8156907eecfa812b181a5a729d790f6d399f311b
-  image_gallery_saver: ^1.7.1
+  image_gallery_saver:
+    path: ./local_packages/image_gallery_saver
   #own packages
   #gallery_media_picker: ^0.1.0
 
